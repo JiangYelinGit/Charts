@@ -142,10 +142,17 @@ open class PieChartView: PieRadarChartViewBase
         let shift = (data as? PieChartData)?.dataSet?.selectionShift ?? 0.0
         
         // create the circle box that will contain the pie-chart (the bounds of the pie-chart)
-        _circleBox.origin.x = (c.x - radius) + shift
-        _circleBox.origin.y = (c.y - radius) + shift
-        _circleBox.size.width = diameter - shift * 2.0
-        _circleBox.size.height = diameter - shift * 2.0
+//        _circleBox.origin.x = (c.x - radius) + shift
+//        _circleBox.origin.y = (c.y - radius) + shift
+//        _circleBox.size.width = diameter - shift * 2.0
+//        _circleBox.size.height = diameter - shift * 2.0
+        if _circleBox.origin.x == 0 && _circleBox.origin.y == 0 && _circleBox.size.width == 0 && _circleBox.size.height == 0{
+            _circleBox.origin.x = (c.x - radius) + shift
+            _circleBox.origin.y = (c.y - radius) + shift
+            _circleBox.size.width = diameter - shift * 2.0
+            _circleBox.size.height = diameter - shift * 2.0
+        }
+
     }
     
     internal override func calcMinMax()
@@ -476,7 +483,14 @@ open class PieChartView: PieRadarChartViewBase
     /// - returns: The circlebox, the boundingbox of the pie-chart slices
     @objc open var circleBox: CGRect
     {
-        return _circleBox
+        get
+        {
+            return _circleBox
+        }
+        set
+        {
+            _circleBox = newValue
+        }
     }
     
     /// - returns: The center of the circlebox
